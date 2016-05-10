@@ -3,11 +3,17 @@
 // We don't need to do anything in here at the moment.
 // Eventually we will have a nice OO wrapper.
 
+void js_dopanic(js_State *J) {
+    Serial.printf("uncaught exception: %s\n", js_tostring(J, -1));
+}
+
 void MuJS::begin() {
     J = js_newstate(NULL, NULL, JS_STRICT);
+    js_atpanic(J, js_dopanic);
     js_core_io_init(J);
     js_core_time_init(J);
     js_serial_init(J);
+
 }
 
 void MuJS::load(const char *data) {
