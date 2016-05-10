@@ -1,34 +1,39 @@
 #include <MuJS.h>
 
-static const char *pgm = "function run() { println('I am now running a function that has been'); println('written in Javascript.'); }";
+// First create an interpreter object
+MuJS js;
 
-static void print(js_State *J) {
-    Serial.print(js_tostring(J, 1));
-    js_pushundefined(J);
-}
+// This is the program we want to run
+static const char *pgm = 
 
-static void println(js_State *J) {
-    Serial.println(js_tostring(J, 1));
-    js_pushundefined(J);
-}
+    "var s = new Serial(0);"
+    "function setup() {"
+    "   s.begin(115200);"
+    "   s.println('I am now running a function that has been');"
+    "   s.println('written in Javascript.');"
+    "   pinMode(13, 1);"
+    "}"
+    ""
+    "function loop() {"
+    "   digitalWrite(13, 1);"
+    "   delay(100);"
+    "   digitalWrite(13, 0);"
+    "   delay(900);"
+    "   s.println(millis());"
+    "}";
 
-js_State *JS;
+
 
 void setup() {
-
-    Serial.begin(115200);
-    
-    JS = js_newstate(NULL, NULL, JS_STRICT);
-    js_newcfunction(JS, print, "print", 1);
-    js_setglobal(JS, "print");
-    js_newcfunction(JS, println, "println", 1);
-    js_setglobal(JS, "println");
-
-    js_dostring(JS, pgm);
-
-    js_dostring(JS, "run();");
+    // Initialize the interpreter
+    js.begin();
+    // Load the program
+    js.load(pgm);
+    // Call the setup function
+    js.setup();
 }
 
 void loop() {
-    
+    // And repeatedly call the loop function
+    js.loop();
 }

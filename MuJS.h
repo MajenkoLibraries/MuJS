@@ -13,5 +13,20 @@ extern "C" {
 }
 #endif
 
+class MuJS {
+    private:
+        js_State *J;
+
+    public:
+        void begin();
+        void load(const char *data);
+        void setup();
+        void loop();
+};
+
+extern void js_serial_init(js_State *J);
+extern void js_core_io_init(js_State *J);
+extern void js_core_time_init(js_State *J);
+
 
 #endif
