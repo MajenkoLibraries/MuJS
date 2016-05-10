@@ -52,6 +52,16 @@ static void js_serial_read(js_State *J) {
     js_pushnumber(J, port->read());
 }
 
+static void js_serial_peek(js_State *J) {
+    SerialWrapper *port = (SerialWrapper *)js_touserdata(J, 0, "Port");
+    js_pushnumber(J, port->peek());
+}
+
+static void js_serial_available(js_State *J) {
+    SerialWrapper *port = (SerialWrapper *)js_touserdata(J, 0, "Port");
+    js_pushnumber(J, port->available());
+}
+
 static void js_serial_print(js_State *J) {
     SerialWrapper *port = (SerialWrapper *)js_touserdata(J, 0, "Port");
   
@@ -111,6 +121,10 @@ void js_serial_init(js_State *J) {
     js_defproperty(J, -2, "println", JS_DONTENUM);
     js_newcfunction(J, js_serial_read, "read", 0);    
     js_defproperty(J, -2, "read", JS_DONTENUM);
+    js_newcfunction(J, js_serial_peek, "read", 0);    
+    js_defproperty(J, -2, "peek", JS_DONTENUM);
+    js_newcfunction(J, js_serial_available, "available", 0);    
+    js_defproperty(J, -2, "available", JS_DONTENUM);
     
     js_newcconstructor(J, js_serial_new, js_serial_new, "Serial", 1);
     js_defglobal(J, "Serial", JS_DONTENUM);
