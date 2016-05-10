@@ -22,6 +22,7 @@ class MuJS {
         void load(const char *data);
         void setup();
         void loop();
+        void call(const char *func);
 };
 
 extern void js_serial_init(js_State *J);

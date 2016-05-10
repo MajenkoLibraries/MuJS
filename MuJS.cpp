@@ -15,13 +15,17 @@ void MuJS::load(const char *data) {
 }
 
 void MuJS::setup() {
-    js_getglobal(J, "setup");
-    js_pushnull(J);
-    js_call(J, 0);
+    call("setup");
 }
 
 void MuJS::loop() {
-    js_getglobal(J, "loop");
+    call("loop");
+}
+
+void MuJS::call(const char *func) {
+    js_getglobal(J, func);
     js_pushnull(J);
     js_call(J, 0);
+    js_pop(J, 1);
+    js_gc(J, 0);
 }
