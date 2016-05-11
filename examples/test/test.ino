@@ -6,11 +6,10 @@ MuJS js;
 // This is the program we want to run
 static const char *pgm = 
 
-    "var s = new Serial(0);"
     "function setup() {"
-    "   s.begin(115200);"
-    "   s.println('I am now running a function that has been');"
-    "   s.println('written in Javascript.');"
+    "   Serial.begin(115200);"
+    "   Serial.println('I am now running a function that has been');"
+    "   Serial.println('written in Javascript.');"
     "   pinMode(13, 1);"
     "}"
     ""
@@ -19,7 +18,7 @@ static const char *pgm =
     "   delay(100);"
     "   digitalWrite(13, 0);"
     "   delay(900);"
-    "   s.println(millis());"
+    "   Serial.println(millis());"
     "}";
 
 

@@ -2,6 +2,7 @@
 #define _MUJS_H
 
 #include <Arduino.h>
+#include <DSPI.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -26,6 +27,7 @@ class MuJS {
 };
 
 extern void js_serial_init(js_State *J);
+extern void js_dspi_init(js_State *J);
 extern void js_core_io_init(js_State *J);
 extern void js_core_time_init(js_State *J);
 

@@ -13,7 +13,7 @@ void MuJS::begin() {
     js_core_io_init(J);
     js_core_time_init(J);
     js_serial_init(J);
-
+    js_dspi_init(J);
 }
 
 void MuJS::load(const char *data) {

@@ -102,9 +102,48 @@ static void js_serial_new(js_State *J) {
     js_getproperty(J, -1, "prototype");
 
     switch (port) {
-        case 0:
+#ifdef _USE_USB_FOR_SERIAL_
             js_newuserdata(J, "Port", new SerialWrapper(Serial), NULL);
+        case -1:
+#endif
+        case 0:
+#ifdef _USE_USB_FOR_SERIAL_
+            js_newuserdata(J, "Port", new SerialWrapper(Serial0), NULL);
+#else
+            js_newuserdata(J, "Port", new SerialWrapper(Serial), NULL);
+#endif
             break;
+
+#if (NUM_SERIAL_PORTS > 1)
+        case 1:
+            js_newuserdata(J, "Port", new SerialWrapper(Serial1), NULL);
+            break;
+#endif
+
+#if (NUM_SERIAL_PORTS > 2)
+        case 2:
+            js_newuserdata(J, "Port", new SerialWrapper(Serial2), NULL);
+            break;
+#endif
+
+#if (NUM_SERIAL_PORTS > 3)
+        case 3:
+            js_newuserdata(J, "Port", new SerialWrapper(Serial3), NULL);
+            break;
+#endif
+
+#if (NUM_SERIAL_PORTS > 4)
+        case 4:
+            js_newuserdata(J, "Port", new SerialWrapper(Serial4), NULL);
+            break;
+#endif
+
+#if (NUM_SERIAL_PORTS > 5)
+        case 5:
+            js_newuserdata(J, "Port", new SerialWrapper(Serial5), NULL);
+            break;
+#endif
+
     }
 }
 
@@ -126,7 +165,52 @@ void js_serial_init(js_State *J) {
     js_newcfunction(J, js_serial_available, "available", 0);    
     js_defproperty(J, -2, "available", JS_DONTENUM);
     
-    js_newcconstructor(J, js_serial_new, js_serial_new, "Serial", 1);
+    js_newcconstructor(J, js_serial_new, js_serial_new, "SerialDevice", 1);
+    js_defglobal(J, "SerialDevice", JS_DONTENUM);
+
+    js_getglobal(J, "SerialDevice");
+#ifdef _USE_USB_FOR_SERIAL_
+    js_pushnumber(J, -1); // USB serial port
+    js_construct(J, 1);
     js_defglobal(J, "Serial", JS_DONTENUM);
+    js_pushnumber(J, 0); // UART 0 serial port
+    js_construct(J, 1);
+    js_defglobal(J, "Serial0", JS_DONTENUM);
+#else
+    js_pushnumber(J, 0); // UART 0 serial port
+    js_construct(J, 1);
+    js_defglobal(J, "Serial", JS_DONTENUM);
+#endif
+
+#if (NUM_SERIAL_PORTS > 1)
+    js_pushnumber(J, 1); // UART 1 serial port
+    js_construct(J, 1);
+    js_defglobal(J, "Serial1", JS_DONTENUM);
+#endif
+
+#if (NUM_SERIAL_PORTS > 2)
+    js_pushnumber(J, 2); // UART 2 serial port
+    js_construct(J, 1);
+    js_defglobal(J, "Serial2", JS_DONTENUM);
+#endif
+
+#if (NUM_SERIAL_PORTS > 3)
+    js_pushnumber(J, 3); // UART 3 serial port
+    js_construct(J, 1);
+    js_defglobal(J, "Serial3", JS_DONTENUM);
+#endif
+
+#if (NUM_SERIAL_PORTS > 4)
+    js_pushnumber(J, 4); // UART 4 serial port
+    js_construct(J, 1);
+    js_defglobal(J, "Serial4", JS_DONTENUM);
+#endif
+
+#if (NUM_SERIAL_PORTS > 5)
+    js_pushnumber(J, 5); // UART 5 serial port
+    js_construct(J, 1);
+    js_defglobal(J, "Serial5", JS_DONTENUM);
+#endif
+
 }
 
