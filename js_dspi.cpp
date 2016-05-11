@@ -11,6 +11,12 @@ static void js_dspi_transfer(js_State *J) {
     js_pushnumber(J, port->transfer((uint8_t)js_tonumber(J, 1)));
 }
 
+static void js_dspi_setSpeed(js_State *J) {
+    DSPI *port = (DSPI *)js_touserdata(J, 0, "Port");
+    port->setSpeed((uint32_t)js_tonumber(J, 1));
+    js_pushundefined(J);
+}
+
 static void js_dspi_new(js_State *J) {
     int port = js_tonumber(J, 1);
     js_currentfunction(J);
@@ -53,6 +59,8 @@ void js_dspi_init(js_State *J) {
     js_defproperty(J, -2, "begin", JS_DONTENUM);
     js_newcfunction(J, js_dspi_transfer, "transfer", 2);
     js_defproperty(J, -2, "transfer", JS_DONTENUM);
+    js_newcfunction(J, js_dspi_setSpeed, "setSpeed", 2);
+    js_defproperty(J, -2, "setSpeed", JS_DONTENUM);
     
     js_newcconstructor(J, js_dspi_new, js_dspi_new, "DSPI", 1);
     js_defglobal(J, "DSPI", JS_DONTENUM);
