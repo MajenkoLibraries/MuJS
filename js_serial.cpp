@@ -69,7 +69,7 @@ static void js_serial_print(js_State *J) {
         if (js_isundefined(J, 2)) {
             port->print(js_tonumber(J, 1));
         } else {
-            port->print(js_tonumber(J, 1), js_tonumber(J, 1));
+            port->print(js_tonumber(J, 1), js_tonumber(J, 2));
         }
     } else if (js_isstring(J, 1)) {
         port->print(js_tostring(J, 1));
@@ -86,7 +86,7 @@ static void js_serial_println(js_State *J) {
         if (js_isundefined(J, 2)) {
             port->println(js_tonumber(J, 1));
         } else {
-            port->println(js_tonumber(J, 1), js_tonumber(J, 1));
+            port->println(js_tonumber(J, 1), js_tonumber(J, 2));
         }
     } else if (js_isstring(J, 1)) {
         port->println(js_tostring(J, 1));
