@@ -1272,13 +1272,23 @@ static void jsR_run(js_State *J, js_Function *F)
 	int ix, iy, okay;
 	int b;
 
+    J->flags &= ~JS_F_ABORT;
+
 	while (1) {
+        _scheduleTask();
+
+
 		if (J->gccounter > JS_GCLIMIT) {
 			J->gccounter = 0;
 			js_gc(J, 0);
 		}
 
 		opcode = *pc++;
+
+        if (J->flags & JS_F_ABORT) {
+            opcode = OP_RETURN;
+        }
+
 		switch (opcode) {
 		case OP_POP: js_pop(J, 1); break;
 		case OP_DUP: js_dup(J); break;
@@ -1712,4 +1722,8 @@ static void jsR_run(js_State *J, js_Function *F)
 			break;
 		}
 	}
+}
+
+void js_abort(js_State *J) {
+    J->flags |= JS_F_ABORT;
 }

@@ -101,6 +101,8 @@ void js_eval(js_State *J);
 void js_call(js_State *J, int n);
 void js_construct(js_State *J, int n);
 
+void js_abort(js_State *J);
+
 const char *js_ref(js_State *J);
 void js_unref(js_State *J, const char *ref);
 

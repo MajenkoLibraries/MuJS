@@ -143,6 +143,8 @@ void *js_savetrypc(js_State *J, js_Instruction *pc);
 
 /* State struct */
 
+#define JS_F_ABORT 1
+
 struct js_State
 {
 	void *actx;
@@ -158,6 +160,7 @@ struct js_State
 	const char *filename;
 	const char *source;
 	int line;
+    int flags;
 
 	/* lexer state */
 	struct { char *text; int len, cap; } lexbuf;
