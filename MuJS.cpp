@@ -36,7 +36,7 @@ void MuJS::loop() {
 void MuJS::call(const char *func) {
     js_getglobal(J, func);
     js_pushnull(J);
-    js_call(J, 0);
+    js_pcall(J, 0);
     js_pop(J, 1);
     js_gc(J, 0);
 }
