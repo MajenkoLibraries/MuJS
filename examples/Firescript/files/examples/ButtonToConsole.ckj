@@ -1,0 +1,13 @@
+function setup() {
+    pinMode(A0, INPUT);
+}
+
+var in1 = HIGH;
+
+function loop() {
+    var i = digitalRead(A0);
+    if (i != in1) {
+        console.log(millis().toString() + " - " + i.toString());
+        in1 = i;
+    }
+}
