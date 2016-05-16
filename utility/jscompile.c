@@ -7,7 +7,7 @@
 
 #define JF js_State *J, js_Function *F
 
-JS_NORETURN void jsC_error(js_State *J, js_Ast *node, const char *fmt, ...) JS_PRINTFLIKE(3,4);
+void jsC_error(js_State *J, js_Ast *node, const char *fmt, ...) JS_PRINTFLIKE(3,4);
 
 static void cfunbody(JF, js_Ast *name, js_Ast *params, js_Ast *body);
 static void cexp(JF, js_Ast *exp);

@@ -128,7 +128,9 @@ void js_loadfile(js_State *J, const char *filename)
 int js_dostring(js_State *J, const char *source)
 {
 	if (js_try(J)) {
-		fprintf(stderr, "%s\n", js_tostring(J, -1));
+        if (J->panic) {
+            J->panic(J);
+        }
 		js_pop(J, 1);
 		return 1;
 	}

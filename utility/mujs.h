@@ -85,14 +85,14 @@ void js_newsyntaxerror(js_State *J, const char *message);
 void js_newtypeerror(js_State *J, const char *message);
 void js_newurierror(js_State *J, const char *message);
 
-JS_NORETURN void js_error(js_State *J, const char *fmt, ...) JS_PRINTFLIKE(2,3);
-JS_NORETURN void js_evalerror(js_State *J, const char *fmt, ...) JS_PRINTFLIKE(2,3);
-JS_NORETURN void js_rangeerror(js_State *J, const char *fmt, ...) JS_PRINTFLIKE(2,3);
-JS_NORETURN void js_referenceerror(js_State *J, const char *fmt, ...) JS_PRINTFLIKE(2,3);
-JS_NORETURN void js_syntaxerror(js_State *J, const char *fmt, ...) JS_PRINTFLIKE(2,3);
-JS_NORETURN void js_typeerror(js_State *J, const char *fmt, ...) JS_PRINTFLIKE(2,3);
-JS_NORETURN void js_urierror(js_State *J, const char *fmt, ...) JS_PRINTFLIKE(2,3);
-JS_NORETURN void js_throw(js_State *J);
+void js_error(js_State *J, const char *fmt, ...);
+void js_evalerror(js_State *J, const char *fmt, ...);
+void js_rangeerror(js_State *J, const char *fmt, ...);
+void js_referenceerror(js_State *J, const char *fmt, ...);
+void js_syntaxerror(js_State *J, const char *fmt, ...);
+void js_typeerror(js_State *J, const char *fmt, ...);
+void js_urierror(js_State *J, const char *fmt, ...);
+void js_throw(js_State *J);
 
 void js_loadstring(js_State *J, const char *filename, const char *source);
 void js_loadfile(js_State *J, const char *filename);

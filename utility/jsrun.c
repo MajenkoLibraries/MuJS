@@ -1197,9 +1197,10 @@ void js_throw(js_State *J)
 		js_pushvalue(J, v);
 		longjmp(J->trybuf[J->trytop].buf, 1);
 	}
-	if (J->panic)
+	if (J->panic) {
 		J->panic(J);
-	abort();
+    }
+    js_abort(J);
 }
 
 /* Main interpreter loop */
